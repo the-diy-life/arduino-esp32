@@ -103,7 +103,6 @@ env.Append(
         "-u", "include_esp_phy_override",
         "-u", "ld_include_highint_hdl",
         "-u", "start_app",
-        "-u", "start_app_other_cores",
         "-u", "__ubsan_include",
         "-u", "__assert_func",
         "-u", "vfs_include_syscalls_impl",
@@ -369,10 +368,10 @@ if "build.variant" in env.BoardConfig():
             join(variants_dir, env.BoardConfig().get("build.variant"))
         ]
     )
-    libs.append(env.BuildLibrary(
+    env.BuildSources(
         join("$BUILD_DIR", "FrameworkArduinoVariant"),
         join(variants_dir, env.BoardConfig().get("build.variant"))
-    ))
+    )
 
 envsafe = env.Clone()
 
