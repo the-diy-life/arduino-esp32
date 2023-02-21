@@ -27,7 +27,9 @@ typedef enum {
 //SPI1 can be used as GPSPI only on ESP32
     SPI1_HOST=0,    ///< SPI1
     SPI2_HOST=1,    ///< SPI2
+#if SOC_SPI_PERIPH_NUM > 2
     SPI3_HOST=2,    ///< SPI3
+#endif
 } spi_host_device_t;
 
 /// SPI Events
@@ -55,6 +57,22 @@ typedef struct {
     uint8_t data_lines;   ///< The line width of data phase, e.g. 4-line-data-phase.
 } spi_line_mode_t;
 
+/**
+ * @brief SPI command.
+ */
+typedef enum {
+     /* Slave HD Only */
+    SPI_CMD_HD_WRBUF    = BIT(0),
+    SPI_CMD_HD_RDBUF    = BIT(1),
+    SPI_CMD_HD_WRDMA    = BIT(2),
+    SPI_CMD_HD_RDDMA    = BIT(3),
+    SPI_CMD_HD_SEG_END  = BIT(4),
+    SPI_CMD_HD_EN_QPI   = BIT(5),
+    SPI_CMD_HD_WR_END   = BIT(6),
+    SPI_CMD_HD_INT0     = BIT(7),
+    SPI_CMD_HD_INT1     = BIT(8),
+    SPI_CMD_HD_INT2     = BIT(9),
+} spi_command_t;
 
 /** @cond */    //Doxy command to hide preprocessor definitions from docs */
 
